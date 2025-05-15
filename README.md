@@ -85,8 +85,7 @@ Gebruikers kunnen:
 
 ## Installatiehandleiding
 1.	Clone deze repository:
-git clone https://github.com/jouwgebruikersnaam/rick-and-morty-explorer.git
-
+git clone https://github.com/Bjorn-guiot/Web-Advanced-Project
 2.	Installeer dependencies (met Vite):
 npm install
 
