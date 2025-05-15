@@ -101,21 +101,21 @@ De app is nu klaar voor gebruik!
 
 ### 🌞 Light Theme
 
-![Light Theme](./Screenshots/light theme.png)  
+![Light Theme](./vite-project/Screenshots/light%20theme.png)  
 *De applicatie in licht thema met karakterlijst.*
 
 ---
 
 ### 🌙 Dark Theme
 
-![Dark Theme](./Screenshots/dark theme.png)  
+![Dark Theme](./vite-project/Screenshots/dark%20theme.png)  
 *Dezelfde weergave maar dan in donker thema.*
 
 ---
 
 ### ⭐ Favorieten Weergave
 
-![Favorieten](./Screenshots/favorites.png)
+![Favorieten](./vite-project/Screenshots/Favorites.png)
 *Overzicht van je opgeslagen favoriete karakters.*
 
 ---
