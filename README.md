@@ -54,7 +54,7 @@ Javascript
 | **Eventhandling**               | Regel 30-50, 95-118                                                       | Gebeurtenissen gekoppeld aan knoppen, links, en theme toggle.    
 
 CSS
-| Vereiste                           | Regels         | Toelichting | 
+| Vereiste                           | Regels         | Toelichting |
 | ------------------------------------------------------------------|
 | **Basis CSS Styling**              | 1 - 44         | Algemene styling van `body`, `header`, `nav`, `.card`, en `img`. Gebruik van CSS variabelen (`--bg-color`, `--text-color`). |
 | **Thema wisselen (licht/donker)**  | 7 - 14         | Definiëren van lichte en donkere thema's via CSS variabelen en `.dark` class op `body`.                                     |
