@@ -30,27 +30,25 @@ Features
 •	Responsive Design: werkt op mobiel, tablet en desktop
 
 Technische vereisten en implementatie
-Vereiste	Implementatie	Bestandslocatie
-Elementen selecteren	document.getElementById()	main.js (regel 4)
-Elementen manipuleren	innerHTML, classList.add	main.js (regel 24, 80)
-Events aan elementen koppelen	addEventListener()	main.js (regel 89)
-const & let gebruik	Overal gebruikt	main.js
-Template literals	${} in kaart HTML	main.js (regel 28)
-Iteratie over arrays	forEach over characters	main.js (regel 24)
-Array methodes	filter, map, includes	main.js (regels 63, 68, 78)
-Arrow functions	(entry) => {} in observer	main.js (regel 10)
-Ternary operator	Favorieten knop hartje 🤍❤️	main.js (regel 30)
-Callback functions	In Event Listeners	main.js (regel 89)
-Promises	fetch().then()	favorites.js (regel 9)
-Async & Await	async fetchCharacters()	main.js (regel 13)
-Observer API	IntersectionObserver animaties	main.js (regel 7)
-Fetch data	API calls	main.js (regel 13)
-JSON manipulatie	data.results	main.js (regel 16)
-Formulier validatie	(niet nodig, zoekveld is input)	-
-LocalStorage gebruik	Opslaan favorieten & thema	main.js (regel 76)
-Flexbox/Grid layout	CSS grid voor kaartjes	style.css (regel 31)
-CSS styling	Licht/donker thema	style.css
-
+HTML
+Vereiste	      | Locatie / Lijnnummer | Uitleg
+Basis HTML layout |	Hele bestand (1-15)	 | Simpele en correcte HTML5 structuur met <!doctype>, html, head, body elementen.
+Responsive design (viewport) |	Lijn 6 |	<meta name="viewport" content="width=device-width, initial-scale=1.0" /> voor mobiele responsiviteit.
+Externe JS-module import	| Lijn 13 |	<script type="module" src="/src/main.js"></script> gebruikt moderne ES-module import.
+Javascript
+Vereiste |	Locatie (regelnummer) | Toelichting
+DOM manipulatie	| Diverse regels (4, 9-27, 38-50, 63-74, 78-100) | Elementen selecteren (querySelector, getElementById), innerHTML manipulatie, eventlisteners koppelen (addEventListener).
+Constanten en variabelen | Regel 3 (const app), regels 10+ (let currentPage) | Gebruik van const en let voor variabelen.
+Template literals | Regel 6-24, 74-98 | HTML-strings met ${} interpolatie in functies renderNav(), renderHeader(), renderPage(), renderCharacters().
+Array methodes	Regel 95 (map()), 108 (filter())	Array methodes voor het mappen van favorieten en filteren van favorieten.
+Arrow functions	Regel 103-118 (=> gebruikt in event listeners)	Arrow functies gebruikt in forEach event handlers en .map callback.
+Ternary operator	Regel 16-23 (in renderHeader), 85 (in renderCharacters)	Voorwaardelijke rendering en tekstselectie binnen template literals.
+Callback functions	Regel 89, 106-116 (in event listeners)	Functies doorgegeven als callbacks aan eventlisteners en .map.
+Promises	Regel 58-67 (fetch met .then en Promise.all)	Fetch gebruikt met .then en Promise.all voor meerdere API requests.
+Async & Await	Regel 53-75, 77-90 (async function loadHomePage en loadFavoritesPage)	Asynchrone functies met await voor fetch calls en data verwerking.
+LocalStorage	Regel 38-54 (localStorage.getItem/setItem)	Opslaan en ophalen van thema en favorieten in localStorage.
+Formulier validatie (basis)	Regel 0-100 (indirect, input veld aanwezig, maar geen echte validatie)	Search input aanwezig, maar valideerfunctie ontbreekt (kan nog toegevoegd worden).
+Eventhandling	Regel 30-50, 95-118	Gebeurtenissen gekoppeld aan knoppen, links, en theme toggle.
 Installatiehandleiding
 1.	Clone deze repository:
 bash
