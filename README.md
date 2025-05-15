@@ -86,6 +86,7 @@ Gebruikers kunnen:
 ## Installatiehandleiding
 1.	Clone deze repository:
 git clone https://github.com/Bjorn-guiot/Web-Advanced-Project
+
 2.	Installeer dependencies (met Vite):
 npm install
 
@@ -100,21 +101,21 @@ De app is nu klaar voor gebruik!
 
 ### 🌞 Light Theme
 
-![Light Theme](./screenshots/light-theme.png)  
+![Light Theme](./Screenshots/light theme.png)  
 *De applicatie in licht thema met karakterlijst.*
 
 ---
 
 ### 🌙 Dark Theme
 
-![Dark Theme](./screenshots/dark-theme.png)  
+![Dark Theme](./Screenshots/dark theme.png)  
 *Dezelfde weergave maar dan in donker thema.*
 
 ---
 
 ### ⭐ Favorieten Weergave
 
-![Favorieten](./screenshots/favorites.png)  
+![Favorieten](./Screenshots/favorites.png)
 *Overzicht van je opgeslagen favoriete karakters.*
 
 ---
