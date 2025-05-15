@@ -10,11 +10,23 @@ body {
 :root {
   --bg-color: #f0f0f0;
   --text-color: #000;
+  --table-bg: #fff;
+  --table-header-bg: #ddd;
+  --table-border: #ccc;
+  --button-bg: #007bff;
+  --button-color: #fff;
+  --button-hover-bg: #0056b3;
 }
 
 body.dark {
   --bg-color: #121212;
   --text-color: #fff;
+  --table-bg: #1f1f1f;
+  --table-header-bg: #333;
+  --table-border: #444;
+  --button-bg: #339af0;
+  --button-color: #fff;
+  --button-hover-bg: #1c7ed6;
 }
 
 header {
@@ -29,37 +41,76 @@ nav a {
   margin: 0 0.5rem;
   text-decoration: none;
   color: var(--text-color);
+  font-weight: 600;
 }
 
-#character-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
+nav a:hover {
+  text-decoration: underline;
 }
 
-.card {
-  background: white;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  text-align: center;
-  padding: 1rem;
-  transform: translateY(50px);
-  opacity: 0;
-  transition: transform 0.6s ease, opacity 0.6s ease;
-}
-
-body.dark .card {
-  background: #1f1f1f;
-}
-
-.card.show {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.card img {
+#character-list table {
   width: 100%;
+  border-collapse: collapse;
+  background-color: var(--table-bg);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#character-list thead {
+  background-color: var(--table-header-bg);
+}
+
+#character-list th, 
+#character-list td {
+  padding: 12px 15px;
+  border: 1px solid var(--table-border);
+  text-align: left;
+  vertical-align: middle;
+}
+
+#character-list th {
+  font-weight: 700;
+  user-select: none;
+}
+
+#character-list tbody tr:hover {
+  background-color: rgba(0,0,0,0.05);
+}
+
+#character-list img {
+  border-radius: 6px;
+  display: block;
+  max-width: 50px;
   height: auto;
-  border-radius: 10px;
+}
+
+button.add-fav, button.remove-fav {
+  background-color: var(--button-bg);
+  color: var(--button-color);
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+button.add-fav[disabled] {
+  opacity: 0.6;
+  cursor: default;
+}
+
+button.add-fav:hover:not([disabled]),
+button.remove-fav:hover {
+  background-color: var(--button-hover-bg);
+}
+
+/* Responsive: op kleine schermen maak je tabel scrollbaar */
+@media (max-width: 600px) {
+  #character-list table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
 }

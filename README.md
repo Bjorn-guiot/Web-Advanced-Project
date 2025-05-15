@@ -1,36 +1,49 @@
 # Web Advanced Project
-Een interactieve webapplicatie waarmee je karakters uit de Rick and Morty-wereld kan ontdekken, zoeken, filteren, sorteren en opslaan als favorieten.
+
+Een interactieve webapplicatie waarmee je karakters uit de Rick and Morty-wereld kan ontdekken, zoeken, filteren, sorteren en opslaan als favorieten.  
 Gemaakt voor het vak Advanced Web.
 
+---
 
-•	Beschrijving
-•	Features
-•	Technische vereisten en implementatie
-•	Installatiehandleiding
-•	Gebruikte API's
-•	Screenshots
-•	Gebruikte bronnen
+## Inhoud
 
+- [Beschrijving](#beschrijving)  
+- [Features](#features)  
+- [Technische vereisten en implementatie](#technische-vereisten-en-implementatie)  
+- [Installatiehandleiding](#installatiehandleiding)  
+- [Screenshots](#screenshots)  
+- [Gebruikte API's](#gebruikte-apis)  
+- [Gebruikte bronnen](#gebruikte-bronnen)  
 
-Beschrijving
-Deze single-page applicatie gebruikt de Rick and Morty API om karakters op te halen.
-Gebruikers kunnen:
-•	Karakters zoeken, filteren en sorteren
-•	Favoriete karakters opslaan (ook na refresh bewaard!)
-•	Tussen licht en donker thema wisselen
-•	Favorieten apart bekijken
+---
 
-Features
-•	Dataverzameling: haalt karakters op via de Rick and Morty API
-•	Zoekfunctie: zoek karakters op naam
-•	Filterfunctie: filter op status (Alive, Dead, Unknown)
-•	Favorieten: sla karakters lokaal op via LocalStorage
-•	Observer API: animaties als kaarten in beeld komen
-•	Thema wisselaar: schakel tussen licht en donker
-•	Responsive Design: werkt op mobiel, tablet en desktop
+## Beschrijving
 
-Technische vereisten en implementatie
-HTML
+Deze single-page applicatie gebruikt de Rick and Morty API om karakters op te halen.  
+Gebruikers kunnen:  
+- Karakters zoeken, filteren en sorteren  
+- Favoriete karakters opslaan (ook na refresh bewaard!)  
+- Tussen licht en donker thema wisselen  
+- Favorieten apart bekijken  
+
+---
+
+## Features
+
+- Dataverzameling: haalt karakters op via de Rick and Morty API  
+- Zoekfunctie: zoek karakters op naam  
+- Filterfunctie: filter op status (Alive, Dead, Unknown)  
+- Favorieten: sla karakters lokaal op via LocalStorage  
+- Observer API: animaties als kaarten in beeld komen  
+- Thema wisselaar: schakel tussen licht en donker  
+- Responsive Design: werkt op mobiel, tablet en desktop  
+
+---
+
+## Technische vereisten en implementatie
+
+### HTML
+
 | Technische Vereiste         | Regels                 | Toelichting                                                       |
 |----------------------------|------------------------|------------------------------------------------------------------|
 | **Basis HTML structuur**    | Hele bestand            | Gebruik van correcte `doctype`, `html`, `head`, en `body` tags.  |
@@ -39,8 +52,8 @@ HTML
 | **Script laden via module** | Regel 10               | ES module script tag: `type="module"` voor moderne JS import.    |
 | **Root container**          | Regel 9                | Div met `id="app"` waar alle content dynamisch wordt ingeladen. |
 
+### Javascript
 
-Javascript
 | Technische Vereiste             | Regels (ongeveer)        | Toelichting                                                                                       |
 |--------------------------------|--------------------------|--------------------------------------------------------------------------------------------------|
 | **DOM manipulatie**             | 1-35, 60-115             | Elementen selecteren (`querySelector`, `getElementById`), innerHTML wijzigen, event listeners.   |
@@ -55,9 +68,9 @@ Javascript
 | **LocalStorage**                | 45-75                    | Opslaan en ophalen van favorieten en thema instellingen.                                        |
 | **Thema toggling**              | 35-50                    | Klasse wisselen op `body` voor donker/licht thema met opslag in localStorage.                    |
 | **Error handling**              | 55-65, 75-85             | `try/catch` blokken voor het afhandelen van fetch fouten.                                       |
-   
 
-CSS
+### CSS
+
 | Technische Vereiste           | Regels        | Toelichting                                                                                     |
 |------------------------------|---------------|------------------------------------------------------------------------------------------------|
 | **Basis CSS Styling**         | 1 - 44        | Algemene styling van `body`, `header`, `nav`, `.card`, en `img`. Gebruik van CSS variabelen (`--bg-color`, `--text-color`). |
@@ -68,33 +81,59 @@ CSS
 | **Gebruik van CSS variabelen**| 3 - 14        | Variabelen voor achtergrond- en tekstkleur, aangepast bij `.dark`.                             |
 | **Gebruiksvriendelijke elementen** | 31 - 44       | Stijl voor `.card` met afgeronde hoeken, schaduw, padding en afbeelding styling voor consistentie.|
 
+---
 
-Installatiehandleiding
+## Installatiehandleiding
 1.	Clone deze repository:
-bash
-CopyEdit
 git clone https://github.com/jouwgebruikersnaam/rick-and-morty-explorer.git
+
 2.	Installeer dependencies (met Vite):
-bash
-CopyEdit
 npm install
+
 3.	Start de Vite development server:
-bash
-CopyEdit
 npm run dev
+
 4.	Open in je browser:
 http://localhost:5173/
 De app is nu klaar voor gebruik!
 
-Gebruikte API's
-•	Rick and Morty API https://rickandmortyapi.com/
+## 📸 Screenshots
 
-Gebruikte bronnen
-•	Rick and Morty API documentatie
-•	Vite officiële documentatie
-•	MDN Web Docs
-•	StackOverflow
-•	ChatGPT (voor hulp bij structuur en observer API uitleg)
-•	https://mamasvg.com/product/rick-and-morty-svg-free/
+### 🌞 Light Theme
 
+![Light Theme](./screenshots/light-theme.png)  
+*De applicatie in licht thema met karakterlijst.*
 
+---
+
+### 🌙 Dark Theme
+
+![Dark Theme](./screenshots/dark-theme.png)  
+*Dezelfde weergave maar dan in donker thema.*
+
+---
+
+### ⭐ Favorieten Weergave
+
+![Favorieten](./screenshots/favorites.png)  
+*Overzicht van je opgeslagen favoriete karakters.*
+
+---
+
+## 🔗 Gebruikte API's
+
+- [Rick and Morty API](https://rickandmortyapi.com/)
+
+---
+
+## 📚 Gebruikte bronnen
+
+- [Rick and Morty API documentatie](https://rickandmortyapi.com/documentation)
+- [Vite officiële documentatie](https://vitejs.dev/)
+- [MDN Web Docs](https://developer.mozilla.org/)
+- [StackOverflow](https://stackoverflow.com/)
+- ChatGPT (voor hulp bij structuur en uitleg van Observer API)
+- [Rick and Morty SVG icons](https://mamasvg.com/product/rick-and-morty-svg-free/)
+
+---
+💡 Tip: Zorg dat de map screenshots/ zich in de root van je project bevindt en dat de bestandsnamen exact overeenkomen met de links hierboven (light-theme.png, dark-theme.png, favorites.png), zodat ze goed getoond worden op GitHub en in VS Code preview.

@@ -3,6 +3,12 @@ import './style.css';
 const app = document.querySelector('#app');
 let currentPage = 'home';
 
+let currentPageNum = 1;
+let maxPage = 0;
+let allCharacters = [];
+
+let observer = null; // voor IntersectionObserver beheren
+
 function renderNav() {
   return `
     <nav>
@@ -24,6 +30,12 @@ function renderHeader(title) {
           <option value="Alive">Levend</option>
           <option value="Dead">Dood</option>
           <option value="unknown">Onbekend</option>
+        </select>
+        <select id="sort-filter">
+          <option value="">Sorteer op</option>
+          <option value="name-asc">Naam A-Z</option>
+          <option value="name-desc">Naam Z-A</option>
+          <option value="status">Status</option>
         </select>
       ` : ''}
       <button id="theme-toggle">Thema wisselen</button>
@@ -60,15 +72,24 @@ function setupEventListeners() {
     currentPage = 'favorites';
     loadFavoritesPage();
   });
+
+  if (currentPage === 'home') {
+    const searchInput = document.getElementById('search');
+    const statusFilter = document.getElementById('status-filter');
+    const sortFilter = document.getElementById('sort-filter');
+
+    if (searchInput) searchInput.addEventListener('input', () => applyFilters());
+    if (statusFilter) statusFilter.addEventListener('change', () => applyFilters());
+    if (sortFilter) sortFilter.addEventListener('change', () => applyFilters());
+  }
 }
 
-//040576
-
-// dark Thema wisselen
+// Thema wisselen
 function toggleTheme() {
   document.body.classList.toggle('dark');
   localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
 }
+
 function loadTheme() {
   const theme = localStorage.getItem('theme');
   if (theme === 'dark') {
@@ -76,7 +97,7 @@ function loadTheme() {
   }
 }
 
-// Helper functies voor favorieten
+// Favorieten helper functies
 function getFavorites() {
   return JSON.parse(localStorage.getItem('favorites')) || [];
 }
@@ -89,29 +110,71 @@ function saveFavorite(id) {
   }
 }
 
-//110501
-
 function removeFavorite(id) {
   let favorites = getFavorites();
   favorites = favorites.filter(favId => favId !== id);
   localStorage.setItem('favorites', JSON.stringify(favorites));
 }
 
-// Homepagina met alle personages.
+// Homepagina: eerste pagina laden
 async function loadHomePage() {
   renderPage();
-  const list = document.getElementById('character-list');
+  currentPageNum = 1;
+  allCharacters = [];
 
   try {
-    const res = await fetch('https://rickandmortyapi.com/api/character');
+    const res = await fetch(`https://rickandmortyapi.com/api/character?page=${currentPageNum}`);
     const data = await res.json();
-    renderCharacters(data.results);
+    maxPage = data.info.pages;
+    allCharacters = data.results;
+    renderCharacters(allCharacters);
+    setupScrollObserver();
   } catch (err) {
-    list.innerHTML = '<p>Fout bij laden personages</p>';
+    document.getElementById('character-list').innerHTML = '<p>Fout bij laden personages</p>';
   }
 }
 
-// Het favorieten gedeelte vann de webpagina Favorieten.
+// Lazy load meer characters via IntersectionObserver
+async function loadMoreCharacters() {
+  if (currentPageNum >= maxPage) return;
+  currentPageNum++;
+
+  try {
+    const res = await fetch(`https://rickandmortyapi.com/api/character?page=${currentPageNum}`);
+    const data = await res.json();
+    allCharacters = allCharacters.concat(data.results);
+    applyFilters(); // filters toepassen op nieuwe lijst
+  } catch (err) {
+    console.error('Fout bij laden volgende pagina:', err);
+  }
+}
+
+function setupScrollObserver() {
+  // Disconnect oude observer als die er is om memory leaks te voorkomen
+  if (observer) {
+    observer.disconnect();
+  }
+
+  // Verwijder oude sentinel als die er is
+  const oldSentinel = document.getElementById('sentinel');
+  if (oldSentinel) oldSentinel.remove();
+
+  const sentinel = document.createElement('div');
+  sentinel.id = 'sentinel';
+  document.getElementById('character-list').appendChild(sentinel);
+
+  observer = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      loadMoreCharacters();
+    }
+  }, {
+    rootMargin: '200px'
+  });
+
+  observer.observe(sentinel);
+}
+
+// Favorieten pagina laden
 async function loadFavoritesPage() {
   renderPage();
   const characterList = document.getElementById('character-list');
@@ -133,34 +196,73 @@ async function loadFavoritesPage() {
   }
 }
 
-//Toon personages in de DOM met knoppen.
+// Personages renderen in tabelvorm met 6 kolommen/details
 function renderCharacters(characters) {
   const characterList = document.getElementById('character-list');
   const favorites = getFavorites();
 
-  characterList.innerHTML = characters.map(character => {
-    const isFavorite = favorites.includes(character.id);
-    const button = currentPage === 'favorites'
-      ? `<button class="remove-fav" data-id="${character.id}">🗑️ Verwijderen</button>`
-      : `<button class="add-fav" data-id="${character.id}">${isFavorite ? '❤️ Opgeslagen' : '➕ Bewaar'}</button>`;
+  if (characters.length === 0) {
+    characterList.innerHTML = '<p>Geen resultaten gevonden.</p>';
+    return;
+  }
 
-    return `
-      <div class="card show">
-        <img src="${character.image}" alt="${character.name}">
-        <h3>${character.name}</h3>
-        <p>Status: ${character.status}</p>
-        <p>Species: ${character.species}</p>
-        <p>Location: ${character.location.name}</p>
-        ${button}
-      </div>
-    `;
-  }).join('');
+  characterList.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>Afbeelding</th>
+          <th>Naam</th>
+          <th>Status</th>
+          <th>Soort</th>
+          <th>Geslacht</th>
+          <th>Locatie</th>
+          <th>Acties</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${characters.map(character => {
+          const isFavorite = favorites.includes(character.id);
+          if (currentPage === 'favorites') {
+            return `
+              <tr>
+                <td><img src="${character.image}" alt="${character.name}" width="50"></td>
+                <td>${character.name}</td>
+                <td>${character.status}</td>
+                <td>${character.species}</td>
+                <td>${character.gender}</td>
+                <td>${character.location.name}</td>
+                <td>
+                  <button class="remove-fav" data-id="${character.id}">🗑️ Verwijderen</button>
+                </td>
+              </tr>
+            `;
+          } else {
+            return `
+              <tr>
+                <td><img src="${character.image}" alt="${character.name}" width="50"></td>
+                <td>${character.name}</td>
+                <td>${character.status}</td>
+                <td>${character.species}</td>
+                <td>${character.gender}</td>
+                <td>${character.location.name}</td>
+                <td>
+                  <button class="add-fav" data-id="${character.id}" ${isFavorite ? 'disabled' : ''}>
+                    ${isFavorite ? '❤️ Opgeslagen' : '➕ Bewaar'}
+                  </button>
+                </td>
+              </tr>
+            `;
+          }
+        }).join('')}
+      </tbody>
+    </table>
+  `;
 
   setupCardButtons();
 }
 
+// Voeg event listeners toe voor toevoegen/verwijderen favorieten
 function setupCardButtons() {
-  // favoriete personages selcteren.
   document.querySelectorAll('.add-fav').forEach(button => {
     button.addEventListener('click', () => {
       const id = parseInt(button.dataset.id);
@@ -170,9 +272,6 @@ function setupCardButtons() {
     });
   });
 
-//010704
-
-  // Verwijder geselecteerde pesonages uit de favorieten.
   document.querySelectorAll('.remove-fav').forEach(button => {
     button.addEventListener('click', () => {
       const id = parseInt(button.dataset.id);
@@ -182,6 +281,29 @@ function setupCardButtons() {
   });
 }
 
-// het starten van de pagina.
+// Filter, zoek en sorteer functie
+function applyFilters() {
+  const searchTerm = document.getElementById('search').value.toLowerCase();
+  const status = document.getElementById('status-filter').value;
+  const sort = document.getElementById('sort-filter').value;
+
+  let filtered = allCharacters.filter(character => {
+    const matchesName = character.name.toLowerCase().includes(searchTerm);
+    const matchesStatus = status === '' || character.status === status;
+    return matchesName && matchesStatus;
+  });
+
+  if (sort === 'name-asc') {
+    filtered.sort((a, b) => a.name.localeCompare(b.name));
+  } else if (sort === 'name-desc') {
+    filtered.sort((a, b) => b.name.localeCompare(a.name));
+  } else if (sort === 'status') {
+    filtered.sort((a, b) => a.status.localeCompare(b.status));
+  }
+
+  renderCharacters(filtered);
+}
+
+// Start de app
 loadTheme();
 loadHomePage();
