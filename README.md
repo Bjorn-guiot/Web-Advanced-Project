@@ -134,6 +134,3 @@ De app is nu klaar voor gebruik!
 - [StackOverflow](https://stackoverflow.com/)
 - ChatGPT (voor hulp bij structuur en uitleg van Observer API)
 - [Rick and Morty SVG icons](https://mamasvg.com/product/rick-and-morty-svg-free/)
-
----
-💡 Tip: Zorg dat de map screenshots/ zich in de root van je project bevindt en dat de bestandsnamen exact overeenkomen met de links hierboven (light-theme.png, dark-theme.png, favorites.png), zodat ze goed getoond worden op GitHub en in VS Code preview.
