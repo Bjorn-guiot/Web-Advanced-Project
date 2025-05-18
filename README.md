@@ -132,5 +132,5 @@ De app is nu klaar voor gebruik!
 - [Vite officiële documentatie](https://vitejs.dev/)
 - [MDN Web Docs](https://developer.mozilla.org/)
 - [StackOverflow](https://stackoverflow.com/)
-- ChatGPT (voor hulp bij structuur en uitleg van Observer API)
+- [ChatGPT] (https://chatgpt.com/share/682a43bb-0638-8002-8c41-9c9eade9b560)
 - [Rick and Morty SVG icons](https://mamasvg.com/product/rick-and-morty-svg-free/)
